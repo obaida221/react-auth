@@ -61,7 +61,7 @@ const Navigation = () => {
             src={darkMode ? lightModeLogo : darkModeLogo} 
             alt="Logo" 
             style={{ 
-              height: '40px', 
+              height: '70px', 
               width: 'auto', 
               marginRight: '8px' 
             }} 
