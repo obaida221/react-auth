@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Navigation from './Navigation';
 import {
@@ -97,6 +97,15 @@ const Login = () => {
             >
               {loading ? 'Logging in...' : 'Login'}
             </Button>
+
+            <Box sx={{ textAlign: 'center', mt: 2 }}>
+              <Typography variant='body2'>
+                Don't have an account?{' '}
+                <Link to='/register' style={{ textDecoration: 'none' }}>
+                  Register here
+                </Link>
+              </Typography>
+            </Box>
           </form>
         </Paper>
       </Box>

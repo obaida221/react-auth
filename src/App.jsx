@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Login from './components/login';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Products from './components/Products';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -20,6 +21,18 @@ const LoginRoute = () => {
   }
   
   return <Login />;
+};
+
+const RegisterRoute = () => {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  
+  if (isAuthenticated()) {
+    const from = location.state?.from?.pathname || '/dashboard';
+    return <Navigate to={from} replace />;
+  }
+  
+  return <Register />;
 };
 
 const AppContent = () => {
@@ -69,6 +82,7 @@ const AppContent = () => {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginRoute />} />
+          <Route path="/register" element={<RegisterRoute />} />
           <Route 
             path="/dashboard" 
             element={

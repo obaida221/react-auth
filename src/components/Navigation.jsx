@@ -46,6 +46,7 @@ const Navigation = () => {
 
   const isLoggedIn = isAuthenticated();
   const isLoginPage = location.pathname === '/login';
+  const isRegisterPage = location.pathname === '/register';
 
   const navItems = isLoggedIn ? [
     { label: 'Dashboard', path: '/dashboard' },
@@ -93,6 +94,49 @@ const Navigation = () => {
         >
           {darkMode ? <LightMode /> : <DarkMode />}
         </IconButton>
+
+        {!isLoggedIn && !isLoginPage && !isRegisterPage && (
+          <>
+            <Button
+              component={Link}
+              to="/login"
+              color="inherit"
+              sx={{ mr: 1 }}
+            >
+              Login
+            </Button>
+            <Button
+              component={Link}
+              to="/register"
+              color="inherit"
+              variant="outlined"
+            >
+              Register
+            </Button>
+          </>
+        )}
+
+        {!isLoggedIn && isLoginPage && (
+          <Button
+            component={Link}
+            to="/register"
+            color="inherit"
+            variant="outlined"
+          >
+            Register
+          </Button>
+        )}
+
+        {!isLoggedIn && isRegisterPage && (
+          <Button
+            component={Link}
+            to="/login"
+            color="inherit"
+            variant="outlined"
+          >
+            Login
+          </Button>
+        )}
 
         {isLoggedIn && (
           <>

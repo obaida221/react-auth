@@ -56,6 +56,38 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (email, password, firstName, lastName) => {
+    try {
+      setLoading(true);
+      const response = await authAPI.register({ 
+        email, 
+        password, 
+        firstName, 
+        lastName 
+      });
+      
+      if (response.data && response.data.data) {
+        const { access_token, user: userData } = response.data.data;
+        
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('user', JSON.stringify(userData));
+        
+        setToken(access_token);
+        setUser(userData);
+        
+        return { success: true };
+      }
+      
+      return { success: false, error: 'Invalid response format' };
+    } catch (error) {
+      console.error('Registration error:', error);
+      const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+      return { success: false, error: errorMessage };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
@@ -124,6 +156,7 @@ export const AuthProvider = ({ children }) => {
     token,
     loading,
     login,
+    register,
     logout,
     refreshToken,
     getProfile,
