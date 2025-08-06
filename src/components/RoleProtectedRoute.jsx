@@ -25,7 +25,6 @@ const RoleProtectedRoute = ({ children, requiredRole, requireManageProducts = fa
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Check specific role requirement
   if (requiredRole && !hasRole(requiredRole)) {
     return (
       <>
@@ -53,8 +52,6 @@ const RoleProtectedRoute = ({ children, requiredRole, requireManageProducts = fa
       </>
     );
   }
-
-  // Check product management permission
   if (requireManageProducts && !canManageProducts()) {
     return (
       <>
